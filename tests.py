@@ -27,4 +27,5 @@ if __name__ == "__main__":
     # r = session.get('https://www.ozon.ru/product/tufli-kapika-185563709/')
     # print(r.text)
     # send('https://www.wildberries.ru/catalog/6034394/detail.aspx?targetUrl=XS')
+    # send('https://www.wildberries.ru/catalog/12069127/detail.aspx?targetUrl=XS')
     # send('https://www.ozon.ru/product/izuchaem-python-programmirovanie-igr-vizualizatsiya-dannyh-veb-prilozheniya-metiz-erik-metiz-erik-211432437/')

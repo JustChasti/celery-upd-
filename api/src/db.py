@@ -36,14 +36,16 @@ def update_link(link, name, price, articul, k_otz, rating, description, properti
     session = Session()
     try:
         product = session.query(Product).filter(Product.url == link).one()
-        product.name = name
-        product.article = articul
-        product.description = description
-        product.properties = properties
+        if product.name != name or product.article != articul or product.description != description or product.properties != properties:
+            product.name = name
+            product.article = articul
+            product.description = description
+            product.properties = properties
+            session.add(product)
         try:
             stats = session.query(Statistics).filter(Statistics.product_id == product.id).one()
-            if stats.price != int(price) or stats.articul != int(articul) or stats.col_otz != int(k_otz):
-                stats = Statistics(price=int(price), articul=int(articul),
+            if stats.price != int(price) or stats.col_otz != int(k_otz) or stats.rating != int(rating):
+                stats = Statistics(price=int(price), rating=int(rating),
                                    col_otz=int(k_otz), product_id=product.id,
                                    created_at=datetime.datetime.now())
                 session.add(stats)
@@ -71,7 +73,6 @@ def update_reviews(link_id, rev_list):
             review = Review(product_id=link_id, user=i['Name'],
                             mark=int(i['Mark']), comment=i['Com'])
             session.add(review)
-            logger.info(str(i['Com']))
     session.commit()
     session.close()
 
@@ -83,12 +84,9 @@ def get_links():
         print(links)
         urls = []
         for i in links:
-            if i.url == 'link1':
-                pass
-            else:
-                req = {}
-                req['url'] = i.url
-                urls.append(req)
+            req = {}
+            req['url'] = i.url
+            urls.append(req)
         return urls
     except Exception as e:
         return []
