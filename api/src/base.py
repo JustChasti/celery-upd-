@@ -121,12 +121,6 @@ class Review(Base):
     comment = Column(String(10000), nullable=False)
     product = relationship(Product, back_populates="reviews")
 
-    def __init__(self, user: str, mark: int, comment: str):
-        self.user, self.mark, self.comment = user, mark, comment
-        self.created_at = datetime.now()
-
-        super(Review, self).__init__()
-
 
 class Statistics(Base):
     __tablename__ = "statistics"

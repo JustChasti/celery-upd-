@@ -58,7 +58,7 @@ def update_link(link, name, price, articul, k_otz, rating, description, properti
         session.close()
         update_reviews(id, rev_list)
     except Exception as e:
-        print(1, link)
+        logger.exception(e)
 
 
 def update_reviews(link_id, rev_list):
@@ -71,6 +71,7 @@ def update_reviews(link_id, rev_list):
             review = Review(product_id=link_id, user=i['Name'],
                             mark=int(i['Mark']), comment=i['Com'])
             session.add(review)
+            logger.info(str(i['Com']))
     session.commit()
     session.close()
 

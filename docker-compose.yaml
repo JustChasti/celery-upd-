@@ -10,6 +10,7 @@ services:
       context: .
       dockerfile: api/Dockerfile
     image: api
+    restart: unless-stopped
     command: flask run
     container_name: api
     env_file:
@@ -38,6 +39,7 @@ services:
       context: .
       dockerfile: parser/Dockerfile
     image: parser
+    restart: unless-stopped
     container_name: parser
     env_file:
       - .env
